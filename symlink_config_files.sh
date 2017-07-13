@@ -1,5 +1,5 @@
 #!/bin/bash
-ln -fs .tern-config ~/.tern-config
-ln -fs .vimrc ~/.vimrc
-ln -fs .eslintrc.json  ~/.eslintrc.json
-ln -fs .zshrc  ~/.zshrc
+ln -fs ~/dot-files/.tern-config ~/.tern-config
+ln -fs ~/dot-files/.vimrc ~/.vimrc
+ln -fs ~/dot-files/.eslintrc.json  ~/.eslintrc.json
+ln -fs ~/dot-files/.zshrc  ~/.zshrc
