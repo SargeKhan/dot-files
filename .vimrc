@@ -37,6 +37,7 @@ Plugin 'tpope/vim-rhubarb'
 Plugin 'rdolgushin/groovy.vim'
 
 Plugin 'tomasr/molokai'
+
 " Replace ack with ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
@@ -91,13 +92,16 @@ set rnu	nu								"  line numbers
 let g:rehash256 = 1
 set nobackup            " get rid of anoying ~fill
 set mouse=n							" allow mouse to interact with vi
-"set foldmethod=indent   " enable code folding based on syntax file
+" fold related options
+set foldmethod=syntax
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
 
 """ For case insensitive search
 set ic
 
 """ Mappings part 
-
 let mapleader = ","
 imap jj <C-c>  		" shift to command mode with double j
 map <C-h> <C-w>h 	" shift to left window
