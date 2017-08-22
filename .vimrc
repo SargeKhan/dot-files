@@ -99,7 +99,7 @@ set nofoldenable
 set foldlevel=2
 
 """ For case insensitive search
-set ic
+set smartcase
 
 """ Mappings part 
 let mapleader = ","
@@ -128,7 +128,10 @@ let g:javascript_plugin_jsdoc = 1
 
 """ For tabs and stuff
 set tabstop=2 softtabstop=2 shiftwidth=2  
+
 " expandtab smarttab
 
+" for jenkins file
+au BufNewFile,BufRead Jenkinsfile setf groovy
 """ share copy with mac copy
 set clipboard=unnamed
