@@ -66,7 +66,10 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-export EDITOR='vi'
+export EDITOR='vim'
+
+# for Lisk Core, dev environment should be set to TEST
+export NODE_ENV='TEST'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -83,8 +86,17 @@ export EDITOR='vi'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vi="vim"
+# Environment variable for GIT.
+export GIT_EDITOR=vim
 
 # Vi mode for terminal
 bindkey -v
 
 bindkey '^ ' autosuggest-accept
+
+bindkey '^R' history-incremental-search-backward
+
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+
+
+# Export digital occean instance ids;
