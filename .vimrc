@@ -53,6 +53,9 @@ Plugin 'tpope/vim-obsession'
 
 Plugin 'terryma/vim-multiple-cursors'
 
+" For showing vim markers
+Plugin 'kshenoy/vim-signature'
+
 " Has issues with CtrlP key
 " Plugin 'vim-scripts/YankRing.vim'
 
@@ -70,6 +73,9 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 " set cursor line
 set cursorline
+
+" tab bar related
+autocmd FileType tagbar setlocal nocursorline nocursorcolumn
 
 " Syntastic configurations
 " For debugging syntastic uncomment this line:
@@ -161,6 +167,8 @@ imap clu <C-c>0yy<S-p>t(llvi(<S-S>'
 nnoremap k gk
 nnoremap j gj
 
+" For ctrlp accessing over ssh connections
+let g:ctrlp_extensions = ['ssh']
 let g:ctrlp_map = '<c-p>' " For CtrlP plugin
 let g:ctrlp_cmd = 'CtrlP' " For CtrlP plugin
 
