@@ -15,13 +15,24 @@ Plugin 'tpope/vim-fugitive'
 
 Plugin 'pangloss/vim-javascript'
 
+" For typescript
+Plugin 'leafgarland/typescript-vim'
+
+" https://github.com/Shougo/vimproc.vim#install for Quramy/tsuquyomi 
+" Then compile the plugin manually where it was installed.
+" i.e. on Linux & Mac
+" $ cd ~/.vim/bundle/vimproc.vim && make
+Plugin 'Shougo/vimproc.vim'
+
+" For typescript end
+
 Plugin 'kien/ctrlp.vim'
 
 Plugin 'tacahiroy/ctrlp-ssh'
 
 Plugin 'scrooloose/nerdtree'
 
-Plugin 'vim-syntastic/syntastic'
+Plugin 'w0rp/ale'
 
 Plugin 'Valloric/YouCompleteMe'
 
@@ -55,6 +66,10 @@ Plugin 'terryma/vim-multiple-cursors'
 
 " For showing vim markers
 Plugin 'kshenoy/vim-signature'
+"
+" For vim markdown
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 
 " Has issues with CtrlP key
 " Plugin 'vim-scripts/YankRing.vim'
@@ -66,37 +81,32 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-" status line  settings
-set laststatus=2
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 " set cursor line
 set cursorline
 
 " tab bar related
 autocmd FileType tagbar setlocal nocursorline nocursorcolumn
 
-" Syntastic configurations
-" For debugging syntastic uncomment this line:
-" let g:syntastic_debug = 3
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_debug_file = "~/syntastic.log"
-let g:syntastic_loc_list_height = 5
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 1
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_mode_map = {
-    \ "mode": "active",
-    \ "passive_filetypes": ["html"] }
-let g:syntastic_javascript_eslint_exe = 'eslint'
+" ale configuration
+" linters for ale
+let g:ale_linters = {'javascript': ['prettier', 'eslint'], 'typescript': ['tsserver']}
+
+let g:ale_fixers = {'javascript': ['prettier', 'eslint'], 'typescript': ['tsserver']}
+
+" if you wish to keep the window open even after errors disappear.
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_open_list = 1
+let g:ale_completion_enabled = 1
+
 " Ycm configuration
 " Close preview window once suggestion is completed
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 0
+let g:ycm_autoclose_preview_window_after_completion = 0
 " For c style lgnguages https://github.com/vim-syntastic/syntastic/issues/1246
 let g:ycm_show_diagnostics_ui = 0
+
+" syntastic typescript
+" let g:syntastic_typescript_checkers = ['tsuquyomi']
 
 " Airline extension configuration
 " let g:airline#extensions#tabline#enabled = 1
@@ -149,6 +159,9 @@ set smartcase
 let mapleader = ","
 
 imap jj <C-c>  		" shift to command mode with double j
+
+" for ale documentation
+map <leader>? :ALEHover<cr>
 
 map <C-h> <C-w>h 	" shift to left window
 map <C-l> <C-w>l 	" shift to right window
