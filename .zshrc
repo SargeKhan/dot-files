@@ -51,7 +51,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions sudo zsh-syntax-highlighting notify)
+plugins=(git zsh-autosuggestions sudo zsh-syntax-highlighting notify zsh-nvm)
 
 # Only for macvim, need to source for autosuggestion
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
