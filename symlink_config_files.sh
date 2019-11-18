@@ -4,3 +4,4 @@ ln -fs ~/dot-files/.vimrc ~/.vimrc
 ln -fs ~/dot-files/.eslintrc.json  ~/.eslintrc.json
 ln -fs ~/dot-files/.zshrc  ~/.zshrc
 ln -fs ~/dot-files/.tmux.conf  ~/.tmux.conf
+ln -fs ~/dot-files/.profile  ~/.profile

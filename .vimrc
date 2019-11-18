@@ -189,6 +189,16 @@ set wildignore+=*/node_modules/*,*/tmp/*,*.so,*.swp,*.zip,public/*
 let g:javascript_plugin_jsdoc = 1
 
 """ For tabs and stuff
+
+filetype plugin indent on
+" show existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
+
+
 set tabstop=2 softtabstop=2 shiftwidth=2  
 
 """ Auto read file when it's contents have been changed
@@ -199,5 +209,5 @@ set autoread
 " for jenkins file
 au BufNewFile,BufRead Jenkinsfile setf groovy
 """ share copy with mac copy
-set clipboard+=unnamed
+""" set clipboard+=unnamed
 
