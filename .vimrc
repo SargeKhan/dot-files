@@ -1,75 +1,140 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" the nd initializec
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" Check if the vim-plug is installed. If not, do it!
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+call plug#begin('~/.vim/plugged')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+Plug 'tpope/vim-fugitive'
 
-Plugin 'tpope/vim-fugitive'
-
-Plugin 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript'
 
 " For typescript
-Plugin 'leafgarland/typescript-vim'
+Plug 'leafgarland/typescript-vim'
 
 " https://github.com/Shougo/vimproc.vim#install for Quramy/tsuquyomi 
 " Then compile the plugin manually where it was installed.
 " i.e. on Linux & Mac
 " $ cd ~/.vim/bundle/vimproc.vim && make
-Plugin 'Shougo/vimproc.vim'
 
+" Give more space for displaying messages.
+set cmdheight=2
+
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  call CocAction('doHover')
+endfunction
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+" Not working as expected
+" nmap <silent> gy <Plug>(coc-type-definition)
+" Not working as expected
+" nmap <silent> gr <Plug>(coc-references)
+
+Plug 'Shougo/vimproc.vim'
+
+" Use release branch (Recommend)
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Plugin 'Valloric/YouCompleteMe'
+
+Plug 'SirVer/ultisnips'
+
+" make YCM compatible with UltiSnips (using supertab)
+" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+" let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+" let g:UltiSnipsExpandTrigger = "<tab>"
+" let g:UltiSnipsJumpForwardTrigger = "<tab>"
+" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+
+
+" If you want :UltiSnipsEdit to split your window.
+" let g:UltiSnipsEditSplit="vertical"
 " For typescript end
 
-Plugin 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
 
-Plugin 'tacahiroy/ctrlp-ssh'
+Plug 'tacahiroy/ctrlp-ssh'
 
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 
-Plugin 'w0rp/ale'
+Plug 'w0rp/ale'
 
-Plugin 'Valloric/YouCompleteMe'
+Plug 'tpope/vim-surround'
 
-Plugin 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
 
-Plugin 'vim-airline/vim-airline'
+Plug 'majutsushi/tagbar'
 
-Plugin 'majutsushi/tagbar'
+Plug 'mileszs/ack.vim'
 
-Plugin 'mileszs/ack.vim'
+Plug 'ternjs/tern_for_vim'
 
-Plugin 'ternjs/tern_for_vim'
+Plug 'tpope/vim-rhubarb'
 
-Plugin 'tpope/vim-rhubarb'
+Plug 'rdolgushin/groovy.vim'
 
-Plugin 'rdolgushin/groovy.vim'
+Plug 'prettier/vim-prettier'
 
 " Colorschemes
-Plugin 'tomasr/molokai'
+Plug 'tomasr/molokai'
 
-Plugin 'nanotech/jellybeans.vim'
+Plug 'nanotech/jellybeans.vim'
 " End colorschemes
 
-Plugin 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 
-Plugin 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-navigator'
 
-Plugin 'tpope/vim-obsession'
+Plug 'tpope/vim-obsession'
 
-Plugin 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors'
 
 " For showing vim markers
-Plugin 'kshenoy/vim-signature'
+Plug 'kshenoy/vim-signature'
 "
 " For vim markdown
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+
+Plug 'kamykn/spelunker.vim'
+
+" Initialize plugin system
+call plug#end()
+
+let g:spelunker_white_list_for_user = ['sharethemeal', 'mailchimp', ]
 
 " Has issues with CtrlP key
 " Plugin 'vim-scripts/YankRing.vim'
@@ -77,8 +142,7 @@ Plugin 'plasticboy/vim-markdown'
 " Replace ack with ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
+
 filetype plugin indent on    " required
 
 " set cursor line
@@ -89,9 +153,9 @@ autocmd FileType tagbar setlocal nocursorline nocursorcolumn
 
 " ale configuration
 " linters for ale
-let g:ale_linters = {'javascript': ['prettier', 'eslint'], 'typescript': ['tsserver']}
+let g:ale_linters = {'javascript': ['prettier', 'eslint', 'tsserver'], 'typescript': ['tsserver']}
 
-let g:ale_fixers = {'javascript': ['prettier', 'eslint'], 'typescript': ['tsserver']}
+let g:ale_fixers = {'javascript': ['prettier', 'eslint', 'tsserver'], 'typescript': ['tsserver']}
 
 " if you wish to keep the window open even after errors disappear.
 let g:ale_lint_on_text_changed = 'never'
@@ -100,10 +164,10 @@ let g:ale_completion_enabled = 1
 
 " Ycm configuration
 " Close preview window once suggestion is completed
-let g:ycm_autoclose_preview_window_after_insertion = 0
-let g:ycm_autoclose_preview_window_after_completion = 0
+" let g:ycm_autoclose_preview_window_after_insertion = 0
+" let g:ycm_autoclose_preview_window_after_completion = 0
 " For c style lgnguages https://github.com/vim-syntastic/syntastic/issues/1246
-let g:ycm_show_diagnostics_ui = 0
+" let g:ycm_show_diagnostics_ui = 0
 
 " syntastic typescript
 " let g:syntastic_typescript_checkers = ['tsuquyomi']
