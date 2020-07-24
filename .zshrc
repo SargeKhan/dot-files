@@ -8,6 +8,8 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+# Add stoic quote directory to the PATH
+export PATH=$PATH:$HOME/dot-files/stoic-quotes
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -107,6 +109,7 @@ bindkey '^R' history-incremental-search-backward
 
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=9'
 
+alias gpb="git push origin $(git rev-parse --abbrev-ref HEAD)"
 
 # Export digital occean instance ids;
 

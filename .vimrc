@@ -1,6 +1,9 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+""" Mappings part 
+let mapleader = ","
+
 " Check if the vim-plug is installed. If not, do it!
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -13,6 +16,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-fugitive'
 
 Plug 'pangloss/vim-javascript'
+
+Plug 'heavenshell/vim-jsdoc'
 
 " For typescript
 Plug 'leafgarland/typescript-vim'
@@ -56,27 +61,32 @@ nmap <silent> gi <Plug>(coc-implementation)
 " Not working as expected
 " nmap <silent> gy <Plug>(coc-type-definition)
 " Not working as expected
-" nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gr <Plug>(coc-references)
+
+" coc:snippets configuration
+" Use <C-l> for trigger snippet expand.
+imap <C-L> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-J> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-J>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-K>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-J> <Plug>(coc-snippets-expand-jump)
 
 Plug 'Shougo/vimproc.vim'
+
+Plug 'ruanyl/vim-gh-line'
 
 " Use release branch (Recommend)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Plugin 'Valloric/YouCompleteMe'
-
-Plug 'SirVer/ultisnips'
-
-" make YCM compatible with UltiSnips (using supertab)
-" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-" let g:SuperTabDefaultCompletionType = '<C-n>'
-
-" better key bindings for UltiSnipsExpandTrigger
-" let g:UltiSnipsExpandTrigger = "<tab>"
-" let g:UltiSnipsJumpForwardTrigger = "<tab>"
-" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-" Snippets are separated from the engine. Add this if you want them:
+" vim snippets
 Plug 'honza/vim-snippets'
 
 
@@ -131,6 +141,20 @@ Plug 'plasticboy/vim-markdown'
 
 Plug 'kamykn/spelunker.vim'
 
+Plug 'vim-scripts/ZoomWin'
+
+" Jump to characters like chrome vimium plugin
+Plug 'easymotion/vim-easymotion'
+
+" Start screen pretty and beautify
+Plug 'mhinz/vim-startify'
+
+let quote  = system('echo $(quote.sh)')
+
+" Set the quotes used by startify
+let g:startify_custom_header_quotes = [
+      \ [quote],
+      \ ]
 " Initialize plugin system
 call plug#end()
 
@@ -155,12 +179,15 @@ autocmd FileType tagbar setlocal nocursorline nocursorcolumn
 " linters for ale
 let g:ale_linters = {'javascript': ['prettier', 'eslint', 'tsserver'], 'typescript': ['tsserver']}
 
-let g:ale_fixers = {'javascript': ['prettier', 'eslint', 'tsserver'], 'typescript': ['tsserver']}
+" let g:ale_fixers = {'javascript': ['prettier', 'eslint', 'tsserver'], 'typescript': ['tsserver']}
 
 " if you wish to keep the window open even after errors disappear.
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_open_list = 1
 let g:ale_completion_enabled = 1
+
+" for ale documentation
+" map <leader>? :ALEHover<cr>
 
 " Ycm configuration
 " Close preview window once suggestion is completed
@@ -219,27 +246,22 @@ set spelllang=en
 set ignorecase
 set smartcase
 
-""" Mappings part 
-let mapleader = ","
+
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 
 imap jj <C-c>  		" shift to command mode with double j
-
-" for ale documentation
-map <leader>? :ALEHover<cr>
 
 map <C-h> <C-w>h 	" shift to left window
 map <C-l> <C-w>l 	" shift to right window
 map <C-j> <C-w>j 	" shift to bottom window
 map <C-k> <C-w>k 	" shift to upper window
 map tt :NERDTreeToggle<cr> " open nerdtree with tt
+map tc :NERDTreeFind<cr> " open nerdtree and shows current file
 " Incase we are not sharing buffer b/w os and vim 
 map <leader>y "+y 
 map <leader>p "+p 
 map <C-q> :buff
-
-""" JS specific mappings TODO: make them only work for .js extension;
-imap clg console.log( );<C-c>hha
-imap clu <C-c>0yy<S-p>t(llvi(<S-S>'
 
 nnoremap k gk
 nnoremap j gj
@@ -249,7 +271,7 @@ let g:ctrlp_extensions = ['ssh']
 let g:ctrlp_map = '<c-p>' " For CtrlP plugin
 let g:ctrlp_cmd = 'CtrlP' " For CtrlP plugin
 
-set wildignore+=*/node_modules/*,*/tmp/*,*.so,*.swp,*.zip,public/*
+set wildignore+=*/node_modules/*,*/tmp/*,*.so,*.swp,*.zip,public/*,*/dists/*,*.map
 let g:javascript_plugin_jsdoc = 1
 
 """ For tabs and stuff
@@ -274,4 +296,3 @@ set autoread
 au BufNewFile,BufRead Jenkinsfile setf groovy
 """ share copy with mac copy
 """ set clipboard+=unnamed
-

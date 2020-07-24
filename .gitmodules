@@ -1,0 +1,3 @@
+[submodule "stoic-quotes"]
+	path = stoic-quotes
+	url = git@github.com:SargeKhan/stoic-thoughts.git
