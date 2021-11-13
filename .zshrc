@@ -4,12 +4,13 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 export ANDROID_HOME=$HOME/Android/Sdk
+export JAVA_HOME=$HOME/work/android-studio/jre
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 # Add stoic quote directory to the PATH
-export PATH=$PATH:$HOME/dot-files/stoic-quotes
+export PATH=$PATH:$HOME/dot-files/stoic-thoughts
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -58,15 +59,13 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git sudo zsh-syntax-highlighting zsh-nvm zsh-autosuggestions)
+plugins=(git sudo zsh-syntax-highlighting zsh-autosuggestions)
 
 # Only for macvim, need to source for autosuggestion
 # source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 source $ZSH/oh-my-zsh.sh
 
-# Source the profile as well
-source ~/.profile
 
 # User configuration
 
@@ -116,3 +115,5 @@ alias gpb="git push origin $(git rev-parse --abbrev-ref HEAD)"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Source the profile as well
+source ~/.profile

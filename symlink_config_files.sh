@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 ln -fs ~/dot-files/.tern-config ~/.tern-config
 ln -fs ~/dot-files/.vimrc ~/.vimrc
 ln -fs ~/dot-files/.eslintrc.json  ~/.eslintrc.json

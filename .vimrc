@@ -1,9 +1,10 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
+set belloff=all
+
 
 """ Mappings part 
 let mapleader = ","
-
 " Check if the vim-plug is installed. If not, do it!
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -16,6 +17,14 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-fugitive'
 
 Plug 'pangloss/vim-javascript'
+
+Plug 'JamshedVesuna/vim-markdown-preview'
+
+Plug 'tomtom/tcomment_vim'
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 Plug 'heavenshell/vim-jsdoc'
 
@@ -30,6 +39,17 @@ Plug 'leafgarland/typescript-vim'
 " Give more space for displaying messages.
 set cmdheight=2
 
+" For cursor color
+if &term =~ "xterm\\|rxvt"
+  " use an orange cursor in insert mode
+  let &t_SI = "\<Esc>]12;orange\x7"
+  " use a red cursor otherwise
+  let &t_EI = "\<Esc>]12;red\x7"
+  silent !echo -ne "\033]12;red\007"
+  " reset cursor when vim exits
+  autocmd VimLeave * silent !echo -ne "\033]112\007"
+  " use \003]12;gray\007 for gnome-terminal
+endif
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -70,6 +90,38 @@ imap <C-L> <Plug>(coc-snippets-expand)
 " Use <C-j> for select text for visual placeholder of snippet.
 vmap <C-J> <Plug>(coc-snippets-select)
 
+" Since v> 12 is required for node
+let g:coc_node_path = '/home/sarge/.nvm/versions/node/v12.22.5/bin/node'
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
+  " Mappings for CoCList
+  " Show all diagnostics.
+  nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+" Resume actions list.
+nnoremap <silent><nowait> <space>f  :<C-u>CocAction<CR>
+
 " Use <C-j> for jump to next placeholder, it's default of coc.nvim
 let g:coc_snippet_next = '<c-J>'
 
@@ -100,9 +152,13 @@ Plug 'tacahiroy/ctrlp-ssh'
 
 Plug 'scrooloose/nerdtree'
 
-Plug 'w0rp/ale'
+Plug 'vim-test/vim-test'
+
+Plug 'frazrepo/vim-rainbow'
+" Plug 'w0rp/ale'
 
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-eunuch'
 
 Plug 'vim-airline/vim-airline'
 
@@ -118,8 +174,11 @@ Plug 'rdolgushin/groovy.vim'
 
 Plug 'prettier/vim-prettier'
 
+Plug 'gennaro-tedesco/nvim-peekup'
+
 " Colorschemes
 Plug 'tomasr/molokai'
+Plug 'mhinz/vim-janah'
 
 Plug 'nanotech/jellybeans.vim'
 " End colorschemes
@@ -129,8 +188,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'tpope/vim-obsession'
-
-Plug 'terryma/vim-multiple-cursors'
 
 " For showing vim markers
 Plug 'kshenoy/vim-signature'
@@ -151,6 +208,8 @@ Plug 'mhinz/vim-startify'
 
 let quote  = system('echo $(quote.sh)')
 
+" When opening file, set the working directory to the root of the project
+let g:startify_change_to_vcs_root = 1
 " Set the quotes used by startify
 let g:startify_custom_header_quotes = [
       \ [quote],
@@ -177,14 +236,14 @@ autocmd FileType tagbar setlocal nocursorline nocursorcolumn
 
 " ale configuration
 " linters for ale
-let g:ale_linters = {'javascript': ['prettier', 'eslint', 'tsserver'], 'typescript': ['tsserver']}
+" let g:ale_linters = {'javascript': ['prettier', 'eslint', 'tsserver'], 'typescript': ['tsserver']}
 
-" let g:ale_fixers = {'javascript': ['prettier', 'eslint', 'tsserver'], 'typescript': ['tsserver']}
+" " let g:ale_fixers = {'javascript': ['prettier', 'eslint', 'tsserver'], 'typescript': ['tsserver']}
 
-" if you wish to keep the window open even after errors disappear.
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_open_list = 1
-let g:ale_completion_enabled = 1
+" " if you wish to keep the window open even after errors disappear.
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_open_list = 1
+" let g:ale_completion_enabled = 1
 
 " for ale documentation
 " map <leader>? :ALEHover<cr>
@@ -203,10 +262,12 @@ let g:ale_completion_enabled = 1
 " let g:airline#extensions#tabline#enabled = 1
  let g:airline_section_z = ''
  let g:airline_section_y = ''
-" colorscheme
-set t_Co=256
+
 " Molokai theme related changes BEGIN
+" colorscheme
 colorscheme molokai
+set t_Co=256
+" colorscheme 
 if &diff
     colorscheme jellybeans
 endif
@@ -263,6 +324,10 @@ map <leader>y "+y
 map <leader>p "+p 
 map <C-q> :buff
 
+" For easily adding logs
+imap clg console.log( );<C-c>hha
+imap clu <C-c>0yy<S-p>t(llvi(<S-S>'
+
 nnoremap k gk
 nnoremap j gj
 
@@ -273,6 +338,9 @@ let g:ctrlp_cmd = 'CtrlP' " For CtrlP plugin
 
 set wildignore+=*/node_modules/*,*/tmp/*,*.so,*.swp,*.zip,public/*,*/dists/*,*.map
 let g:javascript_plugin_jsdoc = 1
+
+" https://github.com/frazrepo/vim-rainbow#simple-configuration
+let g:rainbow_active = 1
 
 """ For tabs and stuff
 
@@ -290,6 +358,8 @@ set tabstop=2 softtabstop=2 shiftwidth=2
 """ Auto read file when it's contents have been changed
 set autoread
 
+" For test runner DEBUG
+let g:test#javascript#runner = 'mocha'
 " expandtab smarttab
 
 " for jenkins file
