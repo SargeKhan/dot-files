@@ -3,6 +3,16 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
+# export ANDROID_HOME=$HOME/Android/Sdk
+# export JAVA_HOME=$HOME/work/android-studio/jre
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$HOME/work/apps/sonar-scanner-4.7.0.2747-macosx/bin
+export PATH=$PATH:/usr/local/opt/openjdk/bin
+# Add stoic quote directory to the PATH
+export PATH=$PATH:$HOME/dot-files/stoic-thoughts
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -51,7 +61,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions sudo zsh-syntax-highlighting notify zsh-nvm)
+plugins=(git sudo zsh-syntax-highlighting zsh-autosuggestions web-search)
 
 # Only for macvim, need to source for autosuggestion
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -66,7 +76,7 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-export EDITOR='vim'
+export EDITOR='nvim'
 
 # for Lisk Core, dev environment should be set to TEST
 export NODE_ENV='TEST'
@@ -98,9 +108,15 @@ bindkey '^R' history-incremental-search-backward
 
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 
-
 # Export digital occean instance ids;
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Source the profile as well
+source ~/.profile
+
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
+
+quote.sh
