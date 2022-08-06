@@ -1,6 +1,6 @@
 #!/bin/bash
-ln -fs ~/dot-files/.tern-config ~/.tern-config
-ln -fs ~/dot-files/.vimrc ~/.vimrc
-ln -fs ~/dot-files/.eslintrc.json  ~/.eslintrc.json
-ln -fs ~/dot-files/.zshrc  ~/.zshrc
-ln -fs ~/dot-files/.tmux.conf  ~/.tmux.conf
+ln -fs ~/code/dot-files/.tern-config ~/.tern-config
+ln -fs ~/code/dot-files/.vimrc ~/.vimrc
+ln -fs ~/code/dot-files/.eslintrc.json  ~/.eslintrc.json
+ln -fs ~/code/dot-files/.zshrc  ~/.zshrc
+ln -fs ~/code/dot-files/.tmux.conf  ~/.tmux.conf

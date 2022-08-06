@@ -1,28 +1,24 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" the nd initializec
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin()
 
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
-Plugin 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript'
 
 " For typescript
-Plugin 'leafgarland/typescript-vim'
+Plug 'leafgarland/typescript-vim'
 
 " https://github.com/Shougo/vimproc.vim#install for Quramy/tsuquyomi 
 " Then compile the plugin manually where it was installed.
 " i.e. on Linux & Mac
 " $ cd ~/.vim/bundle/vimproc.vim && make
-Plugin 'Shougo/vimproc.vim'
+Plug 'Shougo/vimproc.vim'
 
 " Give more space for displaying messages.
 set cmdheight=2
@@ -60,6 +56,18 @@ function! s:show_documentation()
   call CocAction('doHover')
 endfunction
 
+function! s:check_back_space() abort
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+" Insert <tab> when previous text is space, refresh completion if not.
+inoremap <silent><expr> <TAB>
+			\ coc#pum#visible() ? coc#pum#next(1):
+			\ <SID>check_back_space() ? "\<Tab>" :
+			\ coc#refresh()
+
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
@@ -79,7 +87,7 @@ imap <C-L> <Plug>(coc-snippets-expand)
 vmap <C-J> <Plug>(coc-snippets-select)
 
 " Since v> 12 is required for node
-let g:coc_node_path = '/Users/sarge/.nvm/versions/node/v12.22.5/bin/node'
+let g:coc_node_path = '~/.nvm/versions/node/v12.22.5/bin/node'
 " Remap <C-f> and <C-b> for scroll float windows/popups.
 if has('nvim-0.4.0') || has('patch-8.2.0750')
   nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
@@ -143,26 +151,24 @@ Plug 'honza/vim-snippets'
 
 Plug 'scrooloose/nerdtree'
 
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 
-Plugin 'w0rp/ale'
-
-Plugin 'Valloric/YouCompleteMe'
+Plug 'w0rp/ale'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-Plugin 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline'
 
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 
-Plugin 'mileszs/ack.vim'
+Plug 'mileszs/ack.vim'
 
-Plugin 'ternjs/tern_for_vim'
+Plug 'ternjs/tern_for_vim'
 
-Plugin 'tpope/vim-rhubarb'
+Plug 'tpope/vim-rhubarb'
 
-Plugin 'rdolgushin/groovy.vim'
+Plug 'rdolgushin/groovy.vim'
 
 " Colorschemes
 Plug 'mhinz/vim-janah'
@@ -174,28 +180,29 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'nanotech/jellybeans.vim'
 " End colorschemes
 
-Plugin 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 
-Plugin 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-navigator'
 
-Plugin 'tpope/vim-obsession'
+Plug 'tpope/vim-obsession'
 
-Plugin 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors'
 
 " For showing vim markers
-Plugin 'kshenoy/vim-signature'
+Plug 'kshenoy/vim-signature'
 "
 " For vim markdown
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
-" Plugin 'vim-scripts/YankRing.vim'
+" Initialize plugin system
+" - Automatically executes `filetype plugin indent on` and `syntax enable`.
+call plug#end()
+" Plug 'vim-scripts/YankRing.vim'
 
 " Replace ack with ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
 filetype plugin indent on    " required
 
 " set cursor line
@@ -203,24 +210,6 @@ set cursorline
 
 " tab bar related
 autocmd FileType tagbar setlocal nocursorline nocursorcolumn
-
-" ale configuration
-" linters for ale
-let g:ale_linters = {'javascript': ['prettier', 'eslint'], 'typescript': ['tsserver']}
-
-let g:ale_fixers = {'javascript': ['prettier', 'eslint'], 'typescript': ['tsserver']}
-
-" if you wish to keep the window open even after errors disappear.
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_open_list = 1
-let g:ale_completion_enabled = 1
-
-" Ycm configuration
-" Close preview window once suggestion is completed
-let g:ycm_autoclose_preview_window_after_insertion = 0
-let g:ycm_autoclose_preview_window_after_completion = 0
-" For c style lgnguages https://github.com/vim-syntastic/syntastic/issues/1246
-let g:ycm_show_diagnostics_ui = 0
 
 " syntastic typescript
 " let g:syntastic_typescript_checkers = ['tsuquyomi']
