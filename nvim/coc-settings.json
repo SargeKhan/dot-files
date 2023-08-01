@@ -1,0 +1,29 @@
+{
+  "cSpell.userWords": [
+    "Cqrs",
+    "Mplex",
+    "Muxers",
+    "Neighbourhood",
+    "bmcl",
+    "bmcladmin",
+    "chainsafe",
+    "concatination",
+    "dtos",
+    "falso",
+    "floodsub",
+    "gossipsub",
+    "healthcheck",
+    "jsyaml",
+    "libp",
+    "mdns",
+    "multiaddrs",
+    "neighbourhoods",
+    "nestjs",
+    "ngneat",
+    "nrwl",
+    "pickone",
+    "statemachine",
+    "typeorm",
+    "workspacemanagement"
+  ]
+}

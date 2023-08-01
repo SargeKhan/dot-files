@@ -11,8 +11,20 @@ export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$HOME/work/apps/sonar-scanner-4.7.0.2747-macosx/bin
 export PATH=$PATH:/usr/local/opt/openjdk/bin
+export PATH=$PATH:/home/sargekhan/.local/bin
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+# Export the Android SDK path 
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
 # Add stoic quote directory to the PATH
-export PATH=$PATH:$HOME/dot-files/stoic-thoughts
+export PATH=$PATH:$HOME/code/dot-files/stoic-thoughts
+
+export OPENAI_API_KEY="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"
+
+# jV
+alias ch='function _ch(){ chatgpt -n work -c "$*"; };_ch'
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -63,9 +75,6 @@ COMPLETION_WAITING_DOTS="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git sudo zsh-syntax-highlighting zsh-autosuggestions web-search)
 
-# Only for macvim, need to source for autosuggestion
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -77,9 +86,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 export EDITOR='nvim'
-
-# for Lisk Core, dev environment should be set to TEST
-export NODE_ENV='TEST'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -95,9 +101,14 @@ export NODE_ENV='TEST'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vi="vim"
+alias vi="nvim"
+
+alias cpcli="echo $F | xclip -i -selection clipboard"
+
 # Environment variable for GIT.
-export GIT_EDITOR=vim
+export GIT_EDITOR=nvim
+
+alias vimdiff='nvim -d'
 
 # Vi mode for terminal
 bindkey -v
@@ -117,6 +128,21 @@ export NVM_DIR="$HOME/.nvm"
 source ~/.profile
 
 export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
 
 quote.sh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/sargekhan/code/python/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/sargekhan/code/python/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/sargekhan/code/python/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/sargekhan/code/python/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
